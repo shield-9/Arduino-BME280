@@ -41,6 +41,8 @@ bool BME280::begin(const uint8_t address, const uint8_t t_sb,
 	setRegister(REG_ADDR_CONFIG,    config);
 
 	getCalibs();
+
+	return true;
 }
 
 void BME280::getData(float* temperature, float* pressure, float* humidity) {

@@ -35,13 +35,13 @@ class BME280 {
 
 		// This library doesn't support SPI at the moment.
 		// TODO: Add support for SPI.
-		bool begin(uint8_t address);
+		bool begin(const uint8_t address);
 
-		bool begin(uint8_t address, uint8_t t_sb, uint8_t filter,
+		bool begin(const uint8_t address, uint8_t t_sb, uint8_t filter,
 		           uint8_t osrs_t, uint8_t osrs_p, uint8_t osrs_h,
 		           uint8_t mode);
 		           
-		bool begin(uint8_t address, uint8_t t_sb, uint8_t filter,
+		bool begin(const uint8_t address, uint8_t t_sb, uint8_t filter,
 		           uint8_t spi3w_en, uint8_t osrs_t, uint8_t osrs_p,
 		           uint8_t osrs_h, uint8_t mode);
 
@@ -113,11 +113,12 @@ class BME280 {
 		void getCalibs();
 		void getRawData(int32_t* temperature, int32_t pressure, int32_t humidity);
 
-		int32_t calc_T_fine(int32_t adc_T);
+		int32_t calc_T_fine(const int32_t adc_T);
 
-		int32_t compensate_T(int32_t adc_T);
-		uint32_t compensate_P(int32_t adc_P);
-		uint32_t compensate_H(int32_t adc_H);
+		int32_t compensate_T(const int32_t adc_T);
+		uint32_t compensate_P(const int32_t adc_P);
+		uint32_t compensate_H(const int32_t adc_H);
+
 		void setRegister(const uint8_t reg, const uint8_t byte);
 		void getRegister(const uint8_t reg, uint8_t bytes[], const size_t bytes_len);
 };

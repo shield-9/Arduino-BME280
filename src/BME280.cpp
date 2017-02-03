@@ -11,21 +11,25 @@ BME280::BME280() {
 /**
  * High Level API
  */
-bool BME280::begin(uint8_t address) {
+bool BME280::begin(const uint8_t address) {
     return begin(address, REG_CONFIG_TSB_1000, REG_CONFIG_FILTER_OFF,
           REG_CTRL_OSRS_1X, REG_CTRL_OSRS_1X, REG_CTRL_OSRS_1X,
           REG_CTRL_MODE_NORMAL);
 }
 
-bool BME280::begin(uint8_t address, uint8_t t_sb, uint8_t filter,
-                   uint8_t osrs_t, uint8_t osrs_p, uint8_t osrs_h,
-                   uint8_t mode) {
+bool BME280::begin(const uint8_t address, const uint8_t t_sb,
+                   const uint8_t filter, const uint8_t osrs_t,
+                   const uint8_t osrs_p, const uint8_t osrs_h,
+                   const uint8_t mode) {
     return begin(address, t_sb, filter, 0x0, osrs_t, osrs_p, osrs_h, mode);
 }
 
-bool BME280::begin(uint8_t address, uint8_t t_sb, uint8_t filter,
-                   uint8_t spi3w_en, uint8_t osrs_t, uint8_t osrs_p,
-                   uint8_t osrs_h, uint8_t mode) {
+bool BME280::begin(const uint8_t address, const uint8_t t_sb,
+                   const uint8_t filter, const uint8_t spi3w_en,
+                   const uint8_t osrs_t, const uint8_t osrs_p,
+                   const uint8_t osrs_h, const uint8_t mode) {
+    _address = address;
+
     Wire.begin();
 
     uint8_t ctrl_meas = (osrs_t << 5) | (osrs_p << 2) | mode;
@@ -96,7 +100,7 @@ void BME280::getRawData(int32_t* temperature, int32_t pressure, int32_t humidity
 
 /* Compensate Methods are originally provided by BOSCH Sensortec */
 
-int32_t BME280::calc_T_fine(int32_t adc_T) {
+int32_t BME280::calc_T_fine(const int32_t adc_T) {
     int32_t var1, var2;
 
     var1 = ((((adc_T >> 3) - ((int32_t)_calib.dig_T1 << 1))) * ((int32_t)_calib.dig_T2)) >> 11;
@@ -106,13 +110,13 @@ int32_t BME280::calc_T_fine(int32_t adc_T) {
 
 // Returns temperature in DegC, resolution is 0.01 DegC. Output value of “5123” equals 51.23 DegC.
 // t_fine carries fine temperature as global value
-int32_t BME280::compensate_T(int32_t adc_T) {
+int32_t BME280::compensate_T(const int32_t adc_T) {
     return (_t_fine * 5 + 128) >> 8;
 }
 
 // Returns pressure in Pa as unsigned 32 bit integer in Q24.8 format (24 integer bits and 8 fractional bits).
 // Output value of “24674867” represents 24674867/256 = 96386.2 Pa = 963.862 hPa
-uint32_t BME280::compensate_P(int32_t adc_P) {
+uint32_t BME280::compensate_P(const int32_t adc_P) {
     int64_t var1, var2, p;
 
     var1 = ((int64_t)_t_fine) - 128000;
@@ -135,7 +139,7 @@ uint32_t BME280::compensate_P(int32_t adc_P) {
 
 // Returns humidity in %RH as unsigned 32 bit integer in Q22.10 format (22 integer and 10 fractional bits).
 // Output value of “47445” represents 47445/1024 = 46.333 %RH
-uint32_t BME280::compensate_H(int32_t adc_H) {
+uint32_t BME280::compensate_H(const int32_t adc_H) {
     int32_t v_x1_u32r;
 
     v_x1_u32r = (_t_fine - ((int32_t)76800));
@@ -154,14 +158,14 @@ uint32_t BME280::compensate_H(int32_t adc_H) {
 /**
  * Low Level API
  */
-void BME280::setRegister(uint8_t reg, uint8_t byte) {
+void BME280::setRegister(const uint8_t reg, uint8_t byte) {
     Wire.beginTransmission(_address);
     Wire.write(reg);
     Wire.write(byte);
     Wire.endTransmission();
 }
 
-void BME280::getRegister(uint8_t reg, uint8_t* bytes, size_t bytes_len) {
+void BME280::getRegister(const uint8_t reg, uint8_t bytes[], const size_t bytes_len) {
     Wire.beginTransmission(_address);
     Wire.write(reg);
     Wire.endTransmission();

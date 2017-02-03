@@ -91,7 +91,7 @@ void BME280::getCalibs() {
 void BME280::getRawData(int32_t* adc_T, int32_t* adc_P, int32_t* adc_H) {
     uint8_t data[8];
 
-    getRegister(0xF7, data, 8);
+    getRegister(REG_ADDR_PRESS_MSB, data, 8);
 
     *adc_P = ((int32_t)data[0] << 12) | ((int32_t)data[1] << 4) | ((int32_t)data[2] >> 4);
     *adc_T = ((int32_t)data[3] << 12) | ((int32_t)data[4] << 4) | ((int32_t)data[5] >> 4);

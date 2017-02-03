@@ -63,6 +63,15 @@ class BME280 {
 		const uint8_t REG_ADDR_CTRL_MEAS = 0xF4;
 		const uint8_t REG_ADDR_CONFIG    = 0xF5;
 
+		const uint8_t REG_ADDR_PRESS_MSB  = 0xF7;
+		const uint8_t REG_ADDR_PRESS_LSB  = 0xF8;
+		const uint8_t REG_ADDR_PRESS_XLSB = 0xF9;
+		const uint8_t REG_ADDR_TEMP_MSB   = 0xFA;
+		const uint8_t REG_ADDR_TEMP_LSB   = 0xFB;
+		const uint8_t REG_ADDR_TEMP_XLSB  = 0xFC;
+		const uint8_t REG_ADDR_HUM_XSB    = 0xFD;
+		const uint8_t REG_ADDR_HUM_LSB    = 0xFE;
+
 		/**
 		 * Register 0xF5 "config"
 		 */

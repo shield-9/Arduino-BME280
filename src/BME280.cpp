@@ -93,9 +93,9 @@ void BME280::getRawData(int32_t* temperature, int32_t pressure, int32_t humidity
 
     getRegister(0xF7, data, 8);
 
-    *pressure    = (data[0] << 12) | (data[1] << 4) | (data[2] >> 4);
-    *temperature = (data[3] << 12) | (data[4] << 4) | (data[5] >> 4);
-    *humidity    = (data[6] << 8) | data[7];
+    *pressure    = ((int32_t)data[0] << 12) | ((int32_t)data[1] << 4) | ((int32_t)data[2] >> 4);
+    *temperature = ((int32_t)data[3] << 12) | ((int32_t)data[4] << 4) | ((int32_t)data[5] >> 4);
+    *humidity    = ((int32_t)data[6] << 8) | (int32_t)data[7];
 }
 
 /* Compensate Methods are originally provided by BOSCH Sensortec */

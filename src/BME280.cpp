@@ -67,6 +67,10 @@ void BME280::getData(float* temperature, float* pressure, float* humidity) {
 	*humidity    = compensate_H(adc_H) / 1024.0;
 }
 
+void BME280::end() {
+	// Soft reset BME280.
+	setRegister(REG_ADDR_RESET, REG_RESET_VALUE);
+}
 
 /**
  * Middle Level API

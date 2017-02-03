@@ -59,6 +59,10 @@ class BME280 {
 			0x9C, 0x9D, 0x9E, 0x9F, 0xA1, 0xE1, 0xE2, 0xE3, 0xE4, 0xE5, 0xE6, 0xE7
 		};
 
+		const uint8_t REG_ADDR_ID        = 0xD0;
+		const uint8_t REG_ADDR_RESET     = 0xE0;
+		const uint8_t REG_ADDR_STATUS    = 0xF3;
+
 		const uint8_t REG_ADDR_CTRL_HUM  = 0xF2;
 		const uint8_t REG_ADDR_CTRL_MEAS = 0xF4;
 		const uint8_t REG_ADDR_CONFIG    = 0xF5;
@@ -107,6 +111,16 @@ class BME280 {
 		const uint8_t REG_CTRL_MODE_SLEEP  = 0x00;
 		const uint8_t REG_CTRL_MODE_FORCED = 0x01;
 		const uint8_t REG_CTRL_MODE_NORMAL = 0x03;
+
+		/**
+		 * Register 0xD0 "id"
+		 */
+		const uint8_t REG_ID_VALUE = 0x60;
+
+		/**
+		 * Register 0xE0 "reset"
+		 */
+		const uint8_t REG_RESET_VALUE = 0xB6;
 
 
 		// SoftSerial in the future...

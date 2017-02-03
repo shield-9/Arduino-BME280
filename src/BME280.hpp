@@ -46,6 +46,7 @@ class BME280 {
 		           uint8_t osrs_h, uint8_t mode);
 
 		void getData(float* temperature, float* pressure, float* humidity);
+		void getStatus(bool* measuring, bool* im_update);
 
 		void end();
 

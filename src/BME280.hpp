@@ -47,8 +47,6 @@ class BME280 {
 
 		void getData(float* temperature, float* pressure, float* humidity);
 
-		void setRegister(uint8_t reg, uint8_t byte);
-
 		void end();
 
 	private:
@@ -120,9 +118,9 @@ class BME280 {
 		int32_t compensate_T(int32_t adc_T);
 		uint32_t compensate_P(int32_t adc_P);
 		uint32_t compensate_H(int32_t adc_H);
-
-		void getRegister(uint8_t reg, uint8_t[] bytes, size_t bytes_len)
-}
+		void setRegister(const uint8_t reg, const uint8_t byte);
+		void getRegister(const uint8_t reg, uint8_t bytes[], const size_t bytes_len);
+};
 
 extern BME280 bme;
 

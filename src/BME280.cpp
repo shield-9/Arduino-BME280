@@ -88,14 +88,14 @@ void BME280::getCalibs() {
     _calib.dig_H6 = data[31];
 }
 
-void BME280::getRawData(int32_t* temperature, int32_t pressure, int32_t humidity) {
-    uint32_t data[8];
+void BME280::getRawData(int32_t* adc_T, int32_t* adc_P, int32_t* adc_H) {
+    uint8_t data[8];
 
     getRegister(0xF7, data, 8);
 
-    *pressure    = ((int32_t)data[0] << 12) | ((int32_t)data[1] << 4) | ((int32_t)data[2] >> 4);
-    *temperature = ((int32_t)data[3] << 12) | ((int32_t)data[4] << 4) | ((int32_t)data[5] >> 4);
-    *humidity    = ((int32_t)data[6] << 8) | (int32_t)data[7];
+    *adc_P = ((int32_t)data[0] << 12) | ((int32_t)data[1] << 4) | ((int32_t)data[2] >> 4);
+    *adc_T = ((int32_t)data[3] << 12) | ((int32_t)data[4] << 4) | ((int32_t)data[5] >> 4);
+    *adc_H = ((int32_t)data[6] << 8) | (int32_t)data[7];
 }
 
 /* Compensate Methods are originally provided by BOSCH Sensortec */

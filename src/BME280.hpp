@@ -111,7 +111,7 @@ class BME280 {
 		int32_t _t_fine;
 
 		void getCalibs();
-		void getRawData(int32_t* temperature, int32_t pressure, int32_t humidity);
+		void getRawData(int32_t* adc_T, int32_t* adc_P, int32_t* adc_H);
 
 		int32_t calc_T_fine(const int32_t adc_T);
 

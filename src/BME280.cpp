@@ -32,6 +32,15 @@ bool BME280::begin(const uint8_t address, const uint8_t t_sb,
 
 	Wire.begin();
 
+	// Check if BME280 is connected.
+	uint8_t chip_id;
+
+	getRegister(REG_ADDR_ID, &chip_id, 1);
+	if(chip_id != REG_ID_VALUE) {
+		return false;
+	}
+
+	// Set configurations.
 	uint8_t ctrl_meas = (osrs_t << 5) | (osrs_p << 2) | mode;
 	uint8_t config    = (t_sb << 5) | (filter << 2) | spi3w_en;
 	uint8_t ctrl_hum  = osrs_h;
@@ -40,6 +49,7 @@ bool BME280::begin(const uint8_t address, const uint8_t t_sb,
 	setRegister(REG_ADDR_CTRL_MEAS, ctrl_meas);
 	setRegister(REG_ADDR_CONFIG,    config);
 
+	// Get trimming parameters.
 	getCalibs();
 
 	return true;

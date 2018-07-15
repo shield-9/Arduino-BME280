@@ -6,7 +6,7 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-BME280	KEYWORD1	BME280
+BME280	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
